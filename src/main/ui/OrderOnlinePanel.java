@@ -7,9 +7,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-
-
 
 public class OrderOnlinePanel extends JDialog {
 
@@ -17,10 +16,12 @@ public class OrderOnlinePanel extends JDialog {
     private DefaultTableModel tableModel;
     private final JButton addToCartButton = new JButton("Add to Cart");
     private final JButton confirmOrderButton = new JButton("Confirm Order");
+    private final JButton sortPriceButton = new JButton("Sort by Price");
     private final JTextField nameField = new JTextField(20);
     private final JTextField addressField = new JTextField(30);
     private final JTextField phoneField = new JTextField(20);
     private final JTextArea cartArea = new JTextArea(5, 30);
+    private final List<MenuItem> menuItems = new ArrayList<>();
     private final List<MenuItem> cartItems = new ArrayList<>();
 
     public OrderOnlinePanel(JFrame owner) {
@@ -45,6 +46,7 @@ public class OrderOnlinePanel extends JDialog {
     private void initializeControls() {
         addToCartButton.addActionListener(e -> addToCart());
         confirmOrderButton.addActionListener(e -> confirmOrder());
+        sortPriceButton.addActionListener(e -> sortMenuByPrice());
     }
 
     private JPanel createCartPanel() {
@@ -71,33 +73,43 @@ public class OrderOnlinePanel extends JDialog {
         JPanel bottomPanel = new JPanel();
         bottomPanel.add(addToCartButton);
         bottomPanel.add(confirmOrderButton);
+        bottomPanel.add(sortPriceButton);
         return bottomPanel;
     }
 
-
     private void loadMenuItems() {
-
         String filePath = "menu.csv";
-        List<String[]> menuData = main.util.CSVUtils.readCSV(filePath);
+        List<String[]> menuData = main.business.CSVUtils.readCSV(filePath);
         for (String[] item : menuData) {
             if (item.length >= 3) {
                 String name = item[0];
-                String price = item[1];
+                double price = Double.parseDouble(item[1]);
                 String description = item[2];
+                MenuItem menuItem = new MenuItem(name, price, description);
+                menuItems.add(menuItem);
                 tableModel.addRow(new Object[]{name, price, description});
             }
+        }
+    }
+
+    private void sortMenuByPrice() {
+        menuItems.sort(Comparator.comparingDouble(MenuItem::getPrice));
+        refreshTable();
+    }
+
+    private void refreshTable() {
+        tableModel.setRowCount(0);
+        for (MenuItem item : menuItems) {
+            tableModel.addRow(new Object[]{item.getName(), String.format("$%.2f", item.getPrice()), item.getDescription()});
         }
     }
 
     private void addToCart() {
         int selectedRow = menuTable.getSelectedRow();
         if (selectedRow != -1) {
-            String name = (String) tableModel.getValueAt(selectedRow, 0);
-            String price = (String) tableModel.getValueAt(selectedRow, 1);
-            String description = (String) tableModel.getValueAt(selectedRow, 2);
-            MenuItem item = new MenuItem(name, Double.parseDouble(price), description);
+            MenuItem item = menuItems.get(selectedRow);
             cartItems.add(item);
-            cartArea.append(name + " - $" + price + "\n");
+            cartArea.append(item.getName() + " - $" + item.getPrice() + "\n");
         }
     }
 
@@ -111,14 +123,6 @@ public class OrderOnlinePanel extends JDialog {
         DataStorage.addOrder(order);
 
         JOptionPane.showMessageDialog(this, "Order submitted successfully!");
-        dispose(); // Close the dialog after order confirmation
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame owner = new JFrame();
-            OrderOnlinePanel panel = new OrderOnlinePanel(owner);
-            panel.setVisible(true);
-        });
+        dispose();
     }
 }

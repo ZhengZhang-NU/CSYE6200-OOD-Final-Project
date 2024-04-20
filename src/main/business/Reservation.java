@@ -1,6 +1,7 @@
 package main.business;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class Reservation {
@@ -67,5 +68,17 @@ public class Reservation {
 
     public void setStatus(ReservationStatus status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return "Reservation ID: " + reservationId +
+                ", Customer: " + customer.getName() +
+                ", Phone: " + customer.getPhoneNumber() +
+                ", Table: " + table.getTableNumber() +
+                ", Time: " + reservationTime.format(formatter) +
+                ", Party Size: " + partySize +
+                ", Status: " + status;
     }
 }

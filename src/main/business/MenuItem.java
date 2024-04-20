@@ -36,8 +36,4 @@ public class MenuItem {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public static Comparator<MenuItem> getPriceComparator() {
-        return (item1, item2) -> Double.compare(item1.getPrice(), item2.getPrice());
-    }
 }

@@ -2,6 +2,8 @@ package main.ui;
 
 
 
+import main.business.CSVUtils;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -86,13 +88,13 @@ public class EditMenuPanel extends JDialog {
             }
             data.add(rowData);
         }
-        main.util.CSVUtils.writeCSV(data, "menu.csv"); // Specify the file path for menu data
+        main.business.CSVUtils.writeCSV(data, "menu.csv"); // Specify the file path for menu data
         JOptionPane.showMessageDialog(this, "Changes saved successfully!");
         dispose(); // Optionally close the dialog
     }
 
     private void loadMenuData() {
-        List<String[]> data = main.util.CSVUtils.readCSV("menu.csv"); // Load data from the specified file
+        List<String[]> data = main.business.CSVUtils.readCSV("menu.csv"); // Load data from the specified file
         for (String[] rowData : data) {
             model.addRow(rowData);
         }

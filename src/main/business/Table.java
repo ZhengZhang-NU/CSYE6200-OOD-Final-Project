@@ -25,35 +25,5 @@ public class Table {
         this.seatingCapacity = seatingCapacity;
     }
 
-    private class ReservationSlot {
 
-
-        private Reservation reservation;
-        private boolean isOccupied;
-
-        public ReservationSlot(Reservation reservation) {
-            this.reservation = reservation;
-            this.isOccupied = false;
-
-        }
-
-        public Reservation getReservation() {
-            return reservation;
-        }
-
-        public void setReservation(Reservation reservation) {
-            this.reservation = reservation;
-        }
-
-        public boolean isOccupied() {
-            return isOccupied;
-        }
-
-        public void setOccupied(boolean occupied) {
-            isOccupied = occupied;
-        }
-
-
-
-    }
 }

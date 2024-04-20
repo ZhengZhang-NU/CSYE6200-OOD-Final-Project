@@ -1,10 +1,7 @@
 package main.ui;
 
-import main.business.Customer;
-import main.business.Reservation;
-import main.business.Table;
-import main.util.CSVUtils;
-import main.business.DataStorage;
+import main.business.*;
+import main.business.CSVUtils;
 
 import javax.swing.*;
 import java.awt.*;

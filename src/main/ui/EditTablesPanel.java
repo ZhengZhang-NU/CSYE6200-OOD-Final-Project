@@ -1,6 +1,7 @@
 package main.ui;
 
-import main.util.CSVUtils;
+import main.business.CSVUtils;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;

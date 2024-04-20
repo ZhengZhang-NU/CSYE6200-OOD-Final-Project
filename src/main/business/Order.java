@@ -2,6 +2,7 @@ package main.business;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Order {
 
@@ -50,13 +51,20 @@ public class Order {
         this.status = status;
     }
 
-    // Add item to order
-    public void addItemToOrder(MenuItem item) {
-        orderedItems.add(item);
+
+
+
+    @Override
+    public String toString() {
+        String itemsString = orderedItems.stream()
+                .map(item -> item.getName() + " (" + item.getPrice() + ")")
+                .collect(Collectors.joining(", "));
+        return "Order ID: " + orderId +
+                ", Customer: " + customer.getName() +
+                ", Phone: " + customer.getPhoneNumber() +
+                ", Items: " + itemsString +
+                ", Total: $" + orderedItems.stream().mapToDouble(MenuItem::getPrice).sum() +
+                ", Status: " + status;
     }
 
-    // Remove item from order
-    public boolean removeItemFromOrder(MenuItem item) {
-        return orderedItems.remove(item);
-    }
 }
