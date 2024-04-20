@@ -62,7 +62,6 @@ public class ReservationPanel extends JDialog {
         }
     }
 
-
     private List<Table> fetchTables() {
         List<String[]> data = CSVUtils.readCSV("tables.csv");
         List<Table> tables = new ArrayList<>();
@@ -76,19 +75,36 @@ public class ReservationPanel extends JDialog {
         return tables;
     }
 
-
     private void submitReservation() {
         String selectedTable = (String) tableComboBox.getSelectedItem();
         Date date = (Date) dateSpinner.getValue();
-        String name = nameField.getText();
-        String phone = phoneField.getText();
-        int partySize = Integer.parseInt(partySizeField.getText());
+        String name = nameField.getText().trim();
+        String phone = phoneField.getText().trim();
+        String partySizeText = partySizeField.getText().trim();
+
+        // Validate that name, phone, and party size are not empty
+        if (name.isEmpty() || phone.isEmpty() || partySizeText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Error: Name, phone, and party size fields cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;  // Prevent submission if any field is empty
+        }
+
+        int partySize = Integer.parseInt(partySizeText);
         LocalDateTime dateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
 
         // Extract table number and capacity from the selected item
         String[] parts = selectedTable.split(" - Seats ");
         int tableNumber = Integer.parseInt(parts[0].replace("Table ", ""));
         int seatingCapacity = Integer.parseInt(parts[1]);
+
+       
+        if (partySize > seatingCapacity) {
+            JOptionPane.showMessageDialog(this, "Error: Party size exceeds the capacity of the selected table.", "Reservation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!phone.matches("\\d{10}")) {
+            JOptionPane.showMessageDialog(this, "Error: Phone number must be exactly 10 digits.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         Customer newCustomer = new Customer(name, phone, UUID.randomUUID().toString());
         Table table = new Table(tableNumber, seatingCapacity);
