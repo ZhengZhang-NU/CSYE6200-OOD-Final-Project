@@ -33,6 +33,7 @@ public class DataStorage {
         return new ArrayList<>(reservations);
     }
 
+
     public static int generateOrderId() {
         return orders.size() + 1;
     }

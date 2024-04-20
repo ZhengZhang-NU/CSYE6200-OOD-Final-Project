@@ -4,7 +4,6 @@ import main.business.DataStorage;
 import main.business.Reservation;
 import main.business.ReservationStatus;
 
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -40,19 +39,6 @@ public class ViewReservationsPanel extends JDialog {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    private void loadReservations() {
-        for (Reservation reservation : DataStorage.getReservations()) {
-            tableModel.addRow(new Object[]{
-                    reservation.getReservationId(),
-                    reservation.getCustomer().getName(),
-                    reservation.getTable().getTableNumber(),
-                    reservation.getReservationTime().toString(),
-                    reservation.getPartySize(),
-                    reservation.getStatus().toString()
-            });
-        }
-    }
-
     private void initializeButtons() {
         JPanel buttonPanel = new JPanel();
         approveButton = new JButton("Approve");
@@ -66,18 +52,30 @@ public class ViewReservationsPanel extends JDialog {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    private void loadReservations() {
+        for (Reservation reservation : DataStorage.getReservations()) {
+            tableModel.addRow(new Object[]{
+                    reservation.getReservationId(),
+                    reservation.getCustomer().getName(),
+                    reservation.getTable().getTableNumber(),
+                    reservation.getReservationTime().toString(),
+                    reservation.getPartySize(),
+                    reservation.getStatus().toString()
+            });
+        }
+    }
+
     private void updateStatus(ReservationStatus newStatus) {
         int selectedRow = reservationsTable.getSelectedRow();
-        if (selectedRow >= 0) {
+        if (selectedRow != -1) {
             String reservationId = (String) tableModel.getValueAt(selectedRow, 0);
             Reservation reservation = DataStorage.getReservationById(reservationId);
             if (reservation != null) {
                 reservation.setStatus(newStatus);
                 tableModel.setValueAt(newStatus.toString(), selectedRow, 5);
-
-                tableModel.fireTableDataChanged();
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a reservation to update its status.", "Update Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
 }

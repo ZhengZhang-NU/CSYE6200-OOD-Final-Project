@@ -1,9 +1,5 @@
 package main.ui;
 
-
-
-import main.business.CSVUtils;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -61,6 +57,19 @@ public class EditMenuPanel extends JDialog {
         String name = nameField.getText();
         String price = priceField.getText();
         String description = descriptionField.getText();
+
+        if (!name.matches("[a-zA-Z ]+")) {
+            JOptionPane.showMessageDialog(this, "Dish name must contain only letters.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            Double.parseDouble(price);
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(this, "Price must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         if (!name.isEmpty() && !price.isEmpty() && !description.isEmpty()) {
             model.addRow(new Object[]{name, price, description});
             nameField.setText("");
@@ -75,6 +84,8 @@ public class EditMenuPanel extends JDialog {
         int selectedRow = menuTable.getSelectedRow();
         if (selectedRow >= 0) {
             model.removeRow(selectedRow);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete.", "Selection Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

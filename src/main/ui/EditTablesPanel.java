@@ -41,7 +41,7 @@ public class EditTablesPanel extends JDialog {
         JButton saveButton = new JButton("Save Changes");
 
         deleteButton.addActionListener(this::deleteTable);
-        saveButton.addActionListener(e -> saveChanges());
+        saveButton.addActionListener(this::saveChanges);
 
         buttonPanel.add(deleteButton);
         buttonPanel.add(saveButton);
@@ -63,7 +63,7 @@ public class EditTablesPanel extends JDialog {
                 tableNumberField.setText("");
                 seatingCapacityField.setText("");
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Please enter valid integers for table number and seating capacity", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter valid integer values.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
@@ -74,10 +74,12 @@ public class EditTablesPanel extends JDialog {
         int selectedRow = tablesTable.getSelectedRow();
         if (selectedRow >= 0) {
             tableModel.removeRow(selectedRow);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete.", "Selection Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void saveChanges() {
+    private void saveChanges(ActionEvent e) {
         List<String[]> data = new ArrayList<>();
         for (int i = 0; i < tableModel.getRowCount(); i++) {
             int cols = tableModel.getColumnCount();

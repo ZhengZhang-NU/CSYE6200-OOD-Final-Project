@@ -1,8 +1,7 @@
-
 package main.ui;
 
-import main.business.Order;
 import main.business.DataStorage;
+import main.business.Order;
 import main.business.OrderStatus;
 
 import javax.swing.*;
@@ -59,7 +58,7 @@ public class ViewOrdersPanel extends JDialog {
 
     private void updateOrderStatus(ActionEvent e) {
         int selectedRow = ordersTable.getSelectedRow();
-        if (selectedRow >= 0) {
+        if (selectedRow != -1) {
             int orderId = (Integer) tableModel.getValueAt(selectedRow, 0);
             Order order = DataStorage.getOrders().stream()
                     .filter(o -> o.getOrderId() == orderId)
@@ -82,6 +81,8 @@ public class ViewOrdersPanel extends JDialog {
                     tableModel.setValueAt(newStatus, selectedRow, 3);
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select an order to update its status.", "Update Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
