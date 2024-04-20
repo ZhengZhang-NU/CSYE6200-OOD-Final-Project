@@ -28,7 +28,7 @@ public class OrderOnlinePanel extends JDialog {
 
     public OrderOnlinePanel(JFrame owner) {
         super(owner, "Order Online", true);
-        setSize(600, 600);
+        setSize(800, 800);
         setLayout(new BorderLayout());
 
         initializeMenuTable();

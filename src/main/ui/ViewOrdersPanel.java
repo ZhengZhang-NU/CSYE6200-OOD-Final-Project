@@ -17,7 +17,7 @@ public class ViewOrdersPanel extends JDialog {
 
     public ViewOrdersPanel(Dialog owner) {
         super(owner, "View and Update Orders", true);
-        setSize(600, 400);
+        setSize(800, 800);
         setLayout(new BorderLayout());
 
         initializeUIComponents();

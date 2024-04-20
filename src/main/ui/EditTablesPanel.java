@@ -16,7 +16,7 @@ public class EditTablesPanel extends JDialog {
 
     public EditTablesPanel(Dialog owner) {
         super(owner, "Edit Tables", true);
-        setSize(400, 300);
+        setSize(800, 800);
         setLayout(new BorderLayout());
 
         tableModel = new DefaultTableModel(new Object[]{"Table Number", "Seating Capacity"}, 0);

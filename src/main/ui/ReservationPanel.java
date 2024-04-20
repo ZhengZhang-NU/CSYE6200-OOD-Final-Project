@@ -20,7 +20,7 @@ public class ReservationPanel extends JDialog {
 
     public ReservationPanel(Frame owner) {
         super(owner, "Make a Reservation", true);
-        setSize(400, 200);
+        setSize(800, 800);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 

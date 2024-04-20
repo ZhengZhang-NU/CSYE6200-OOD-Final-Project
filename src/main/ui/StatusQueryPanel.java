@@ -15,7 +15,7 @@ public class StatusQueryPanel extends JDialog {
 
     public StatusQueryPanel(JFrame owner) {
         super(owner, "Status Query", true);
-        setSize(400, 300);
+        setSize(800, 800);
         setLayout(new BorderLayout());
 
         JPanel inputPanel = new JPanel(new GridLayout(2, 2));

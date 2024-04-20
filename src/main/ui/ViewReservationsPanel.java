@@ -16,7 +16,7 @@ public class ViewReservationsPanel extends JDialog {
 
     public ViewReservationsPanel(Dialog owner) {
         super(owner, "View and Process Reservations", true);
-        setSize(600, 400);
+        setSize(800, 800);
         setLayout(new BorderLayout());
 
         initializeTable();

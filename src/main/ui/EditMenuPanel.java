@@ -14,7 +14,7 @@ public class EditMenuPanel extends JDialog {
 
     public EditMenuPanel(Dialog owner) {
         super(owner, "Edit Menu", true);
-        setSize(600, 500);
+        setSize(800, 800);
         setLayout(new BorderLayout());
 
         model = new DefaultTableModel(new Object[]{"Dish Name", "Price", "Description"}, 0);
