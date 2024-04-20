@@ -35,4 +35,14 @@ public class DataStorage {
     public static int generateOrderId() {
         return orders.size() + 1;
     }
+
+    // Retrieve a reservation by its ID
+    public static Reservation getReservationById(String reservationId) {
+        for (Reservation reservation : reservations) {
+            if (reservation.getReservationId().equals(reservationId)) {
+                return reservation;
+            }
+        }
+        return null;
+    }
 }

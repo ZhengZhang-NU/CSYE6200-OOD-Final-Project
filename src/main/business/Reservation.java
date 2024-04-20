@@ -1,18 +1,32 @@
 package main.business;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Reservation {
+    private String reservationId;
     private Customer customer;
     private LocalDateTime reservationTime;
     private int partySize;
     private Table table;
+    private ReservationStatus status;
 
     public Reservation(Customer customer, LocalDateTime reservationTime, int partySize, Table table) {
+        this.reservationId = UUID.randomUUID().toString();
         this.customer = customer;
         this.reservationTime = reservationTime;
         this.partySize = partySize;
         this.table = table;
+        this.status = ReservationStatus.PENDING;
+    }
+
+    // Getters and Setters
+    public String getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(String reservationId) {
+        this.reservationId = reservationId;
     }
 
     public Customer getCustomer() {
@@ -45,5 +59,13 @@ public class Reservation {
 
     public void setTable(Table table) {
         this.table = table;
+    }
+
+    public ReservationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReservationStatus status) {
+        this.status = status;
     }
 }

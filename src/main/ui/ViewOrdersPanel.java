@@ -1,13 +1,87 @@
+
 package main.ui;
 
+import main.business.Order;
+import main.business.DataStorage;
+import main.business.OrderStatus;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class ViewOrdersPanel extends JDialog {
+    private JTable ordersTable;
+    private DefaultTableModel tableModel;
+    private JButton updateStatusButton;
 
     public ViewOrdersPanel(Dialog owner) {
         super(owner, "View and Update Orders", true);
-        setSize(400, 300);
+        setSize(600, 400);
+        setLayout(new BorderLayout());
 
+        initializeUIComponents();
+        loadOrders();
+    }
+
+    private void initializeUIComponents() {
+        tableModel = new DefaultTableModel();
+        tableModel.addColumn("Order ID");
+        tableModel.addColumn("Customer Name");
+        tableModel.addColumn("Total Items");
+        tableModel.addColumn("Order Status");
+
+        ordersTable = new JTable(tableModel);
+        ordersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        JScrollPane scrollPane = new JScrollPane(ordersTable);
+        add(scrollPane, BorderLayout.CENTER);
+
+        updateStatusButton = new JButton("Update Status");
+        updateStatusButton.addActionListener(this::updateOrderStatus);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(updateStatusButton);
+        add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    private void loadOrders() {
+        List<Order> orders = DataStorage.getOrders();
+        for (Order order : orders) {
+            tableModel.addRow(new Object[]{
+                    order.getOrderId(),
+                    order.getCustomer().getName(),
+                    order.getOrderedItems().size(),
+                    order.getStatus().toString()
+            });
+        }
+    }
+
+    private void updateOrderStatus(ActionEvent e) {
+        int selectedRow = ordersTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            int orderId = (Integer) tableModel.getValueAt(selectedRow, 0);
+            Order order = DataStorage.getOrders().stream()
+                    .filter(o -> o.getOrderId() == orderId)
+                    .findFirst()
+                    .orElse(null);
+
+            if (order != null) {
+                Object[] possibilities = {"PREPARING", "READY", "DELIVERED"};
+                String newStatus = (String) JOptionPane.showInputDialog(
+                        this,
+                        "Select new status:",
+                        "Update Order Status",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        possibilities,
+                        order.getStatus().toString());
+
+                if (newStatus != null && newStatus.length() > 0) {
+                    order.setStatus(OrderStatus.valueOf(newStatus));
+                    tableModel.setValueAt(newStatus, selectedRow, 3);
+                }
+            }
+        }
     }
 }
