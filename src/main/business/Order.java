@@ -51,6 +51,10 @@ public class Order {
         this.status = status;
     }
 
+    public void addItemToOrder(MenuItem item) {
+        this.orderedItems.add(item);
+    }
+
 
 
 
