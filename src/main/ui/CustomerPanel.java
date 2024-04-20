@@ -3,18 +3,20 @@ package main.ui;
 import javax.swing.*;
 import java.awt.*;
 import main.business.Table;
+
+import java.util.Arrays;
 import java.util.List;
 
 public class CustomerPanel extends JFrame {
     private JButton makeReservationButton;
     private JButton orderOnlineButton;
-    private MainFrame mainFrame; // 添加对 MainFrame 的引用
+    private MainFrame mainFrame;
 
     public CustomerPanel(MainFrame mainFrame) {
-        this.mainFrame = mainFrame; // 存储对主框架的引用
+        this.mainFrame = mainFrame;
         setTitle("Customer Options");
         setSize(300, 200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 使用 DISPOSE_ON_CLOSE 而不是 EXIT_ON_CLOSE
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new GridLayout(2, 1, 10, 10));
 
@@ -34,7 +36,7 @@ public class CustomerPanel extends JFrame {
 
     private void openReservationPanel() {
         List<Table> tables = fetchTables();
-        ReservationPanel reservationPanel = new ReservationPanel(this, tables);
+        ReservationPanel reservationPanel = new ReservationPanel(this);
         reservationPanel.setVisible(true);
     }
 
@@ -44,7 +46,7 @@ public class CustomerPanel extends JFrame {
     }
 
     private List<Table> fetchTables() {
-        // 实际的表获取应当更复杂，这里仅作为示例
-        return java.util.Arrays.asList(new Table(1, 4), new Table(2, 6), new Table(3, 2));
+
+        return Arrays.asList(new Table(1, 4), new Table(2, 6), new Table(3, 2));
     }
 }

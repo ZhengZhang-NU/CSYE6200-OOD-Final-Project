@@ -3,81 +3,102 @@ package main.ui;
 import main.business.Customer;
 import main.business.Reservation;
 import main.business.Table;
+import main.util.CSVUtils;
 import main.business.DataStorage;
 
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
 
 public class ReservationPanel extends JDialog {
+    private JComboBox<String> tableComboBox;
+    private JSpinner dateSpinner;
+    private JTextField nameField;
+    private JTextField phoneField;
+    private JTextField partySizeField;
+    private JButton submitButton;
 
-    private final JComboBox<Table> tableComboBox;
-    private final JSpinner timeSpinner;
-    private final JTextField nameField = new JTextField(10);
-    private final JTextField phoneField = new JTextField(10);
-    private final JTextField partySizeField = new JTextField(5);
-    private final JButton submitButton = new JButton("Submit");
-
-    public ReservationPanel(Frame owner, List<Table> tables) {
+    public ReservationPanel(Frame owner) {
         super(owner, "Make a Reservation", true);
-        setSize(400, 300);
-        setLayout(new GridLayout(6, 2));
+        setSize(400, 200);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLayout(new BorderLayout());
 
-        add(new JLabel("Customer Name:"));
-        add(nameField);
-        add(new JLabel("Phone Number:"));
-        add(phoneField);
+        JPanel inputPanel = new JPanel(new GridLayout(5, 2));
 
-        tableComboBox = new JComboBox<>(tables.toArray(new Table[0]));
-        tableComboBox.setRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof Table) {
-                    Table table = (Table) value;
-                    setText("Table " + table.getTableNumber() + " - Seats " + table.getSeatingCapacity());
-                }
-                return this;
-            }
-        });
-        add(new JLabel("Table:"));
-        add(tableComboBox);
+        tableComboBox = new JComboBox<>();
+        dateSpinner = new JSpinner(new SpinnerDateModel());
+        nameField = new JTextField();
+        phoneField = new JTextField();
+        partySizeField = new JTextField();
+        submitButton = new JButton("Submit");
 
-        SpinnerDateModel model = new SpinnerDateModel();
-        model.setCalendarField(Calendar.MINUTE);
-        timeSpinner = new JSpinner(model);
-        JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
-        timeSpinner.setEditor(timeEditor);
-        add(new JLabel("Time:"));
-        add(timeSpinner);
+        JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(dateSpinner, "dd/MM/yyyy HH:mm:ss");
+        dateSpinner.setEditor(timeEditor);
 
-        add(new JLabel("Party Size:"));
-        add(partySizeField);
+        inputPanel.add(new JLabel("Table:"));
+        inputPanel.add(tableComboBox);
+        inputPanel.add(new JLabel("Date and Time:"));
+        inputPanel.add(dateSpinner);
+        inputPanel.add(new JLabel("Name:"));
+        inputPanel.add(nameField);
+        inputPanel.add(new JLabel("Phone:"));
+        inputPanel.add(phoneField);
+        inputPanel.add(new JLabel("Party Size:"));
+        inputPanel.add(partySizeField);
 
-        add(submitButton);
+        add(inputPanel, BorderLayout.CENTER);
+        add(submitButton, BorderLayout.SOUTH);
+
+        loadTablesIntoComboBox();
+
         submitButton.addActionListener(e -> submitReservation());
-
-        setLocationRelativeTo(owner);
     }
 
+    private void loadTablesIntoComboBox() {
+        List<Table> tables = fetchTables();
+        for (Table table : tables) {
+            tableComboBox.addItem("Table " + table.getTableNumber() + " - Seats " + table.getSeatingCapacity());
+        }
+    }
+
+
+    private List<Table> fetchTables() {
+        List<String[]> data = CSVUtils.readCSV("tables.csv");
+        List<Table> tables = new ArrayList<>();
+        for (String[] row : data) {
+            if (row.length >= 2) {
+                int tableNumber = Integer.parseInt(row[0]);
+                int seatingCapacity = Integer.parseInt(row[1]);
+                tables.add(new Table(tableNumber, seatingCapacity));
+            }
+        }
+        return tables;
+    }
+
+
     private void submitReservation() {
+        String selectedTable = (String) tableComboBox.getSelectedItem();
+        Date date = (Date) dateSpinner.getValue();
         String name = nameField.getText();
         String phone = phoneField.getText();
-        Table selectedTable = (Table) tableComboBox.getSelectedItem();
-        Date time = (Date) timeSpinner.getValue();
         int partySize = Integer.parseInt(partySizeField.getText());
+        LocalDateTime dateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
 
-        LocalDateTime reservationTime = LocalDateTime.ofInstant(time.toInstant(), ZoneId.systemDefault());
+        // Extract table number and capacity from the selected item
+        String[] parts = selectedTable.split(" - Seats ");
+        int tableNumber = Integer.parseInt(parts[0].replace("Table ", ""));
+        int seatingCapacity = Integer.parseInt(parts[1]);
 
-        Customer customer = new Customer(name, phone, "");
-        Reservation reservation = new Reservation(customer, reservationTime, partySize, selectedTable);
-        DataStorage.addReservation(reservation);
+        Customer newCustomer = new Customer(name, phone, UUID.randomUUID().toString());
+        Table table = new Table(tableNumber, seatingCapacity);
+        Reservation newReservation = new Reservation(newCustomer, dateTime, partySize, table);
+        DataStorage.addReservation(newReservation);
 
         JOptionPane.showMessageDialog(this, "Reservation submitted successfully!");
-        dispose(); // Close the dialog
+        dispose();
     }
 }

@@ -2,26 +2,26 @@ package main.business;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class Customer extends Person {
     private String customerId;
+    private String address;
     private List<Reservation> reservations;
 
 
-    public Customer(String name, String phoneNumber, String customerId) {
+    public Customer(String name, String phoneNumber, String address) {
         super(name, phoneNumber);
-        this.customerId = customerId;
-        this.reservations = new ArrayList<>();
+        this.customerId = UUID.randomUUID().toString();
+        this.address = address;
     }
 
     public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
+
 
     public List<Reservation> getReservations() {
         return reservations;
@@ -34,4 +34,6 @@ public class Customer extends Person {
     public void addReservation(Reservation reservation) {
         this.reservations.add(reservation);
     }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 }

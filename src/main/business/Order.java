@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
+
     private int orderId;
     private Customer customer;
     private List<MenuItem> orderedItems;
     private OrderStatus status;
 
-    public Order(int orderId, Customer customer) {
+    public Order(int orderId, Customer customer, List<MenuItem> orderedItems) {
         this.orderId = orderId;
         this.customer = customer;
-        this.orderedItems = new ArrayList<>();
-        this.status = OrderStatus.PREPARING; // Default status
+        this.orderedItems = orderedItems;
+        this.status = OrderStatus.PREPARING;
     }
+
 
     public int getOrderId() {
         return orderId;
