@@ -13,16 +13,19 @@ import java.util.List;
 public class CustomerPanel extends JFrame {
     private JButton makeReservationButton;
     private JButton orderOnlineButton;
-    private JButton statusQueryButton; // 新按钮
+    private JButton statusQueryButton;
     private MainFrame mainFrame;
 
     public CustomerPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         setTitle("Customer Options");
-        setSize(300, 300); // 更新尺寸以适应新按钮
+        setSize(300, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(3, 1, 10, 10)); // 更新布局以适应新按钮
+        setLayout(new GridLayout(3, 1, 10, 10));
+
+        // Set a custom background color
+        getContentPane().setBackground(new Color(245, 245, 245)); // Soft gray background
 
         initializeComponents();
     }
@@ -30,15 +33,28 @@ public class CustomerPanel extends JFrame {
     private void initializeComponents() {
         makeReservationButton = new JButton("Make a Reservation");
         orderOnlineButton = new JButton("Order Online");
-        statusQueryButton = new JButton("Status Query"); // 初始化状态查询按钮
+        statusQueryButton = new JButton("Status Query");
+
+        // Customize button colors and fonts
+        customizeButton(makeReservationButton, new Color(169, 204, 227), Color.WHITE); // Desaturated cyan
+        customizeButton(orderOnlineButton, new Color(93, 109, 126), Color.WHITE); // Cool gray blue
+        customizeButton(statusQueryButton, new Color(169, 204, 227), Color.WHITE); // Soft blue
 
         makeReservationButton.addActionListener(e -> openReservationPanel());
         orderOnlineButton.addActionListener(e -> openOrderOnlinePanel());
-        statusQueryButton.addActionListener(e -> openStatusQueryPanel()); // 为新按钮设置监听器
+        statusQueryButton.addActionListener(e -> openStatusQueryPanel());
 
         add(makeReservationButton);
         add(orderOnlineButton);
-        add(statusQueryButton); // 添加到面板
+        add(statusQueryButton);
+    }
+
+    private void customizeButton(JButton button, Color backgroundColor, Color textColor) {
+        button.setBackground(backgroundColor);
+        button.setForeground(textColor);
+        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        button.setFocusPainted(false); // Remove the focus border around the button
     }
 
     private void openReservationPanel() {
@@ -59,5 +75,16 @@ public class CustomerPanel extends JFrame {
 
     private List<Table> fetchTables() {
         return Arrays.asList(new Table(1, 4), new Table(2, 6), new Table(3, 2));
+    }
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                CustomerPanel frame = new CustomerPanel(new MainFrame());
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

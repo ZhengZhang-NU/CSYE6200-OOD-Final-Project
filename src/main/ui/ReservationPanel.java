@@ -24,7 +24,9 @@ public class ReservationPanel extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        // Setting background colors for the panels
         JPanel inputPanel = new JPanel(new GridLayout(5, 2));
+        inputPanel.setBackground(new Color(232, 241, 242)); // Light blue-grey
 
         tableComboBox = new JComboBox<>();
         dateSpinner = new JSpinner(new SpinnerDateModel());
@@ -33,6 +35,11 @@ public class ReservationPanel extends JDialog {
         partySizeField = new JTextField();
         submitButton = new JButton("Submit");
 
+        // Customize button colors
+        submitButton.setBackground(new Color(70, 130, 180)); // Steel blue color
+        submitButton.setForeground(Color.WHITE); // White text for readability
+
+        // Spinner editor
         JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(dateSpinner, "dd/MM/yyyy HH:mm:ss");
         dateSpinner.setEditor(timeEditor);
 
@@ -82,21 +89,18 @@ public class ReservationPanel extends JDialog {
         String phone = phoneField.getText().trim();
         String partySizeText = partySizeField.getText().trim();
 
-        // Validate that name, phone, and party size are not empty
         if (name.isEmpty() || phone.isEmpty() || partySizeText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Error: Name, phone, and party size fields cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-            return;  // Prevent submission if any field is empty
+            return;
         }
 
         int partySize = Integer.parseInt(partySizeText);
         LocalDateTime dateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
 
-        // Extract table number and capacity from the selected item
         String[] parts = selectedTable.split(" - Seats ");
         int tableNumber = Integer.parseInt(parts[0].replace("Table ", ""));
         int seatingCapacity = Integer.parseInt(parts[1]);
 
-       
         if (partySize > seatingCapacity) {
             JOptionPane.showMessageDialog(this, "Error: Party size exceeds the capacity of the selected table.", "Reservation Error", JOptionPane.ERROR_MESSAGE);
             return;

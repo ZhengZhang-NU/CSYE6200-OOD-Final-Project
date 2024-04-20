@@ -19,9 +19,13 @@ public class EditMenuPanel extends JDialog {
 
         model = new DefaultTableModel(new Object[]{"Dish Name", "Price", "Description"}, 0);
         menuTable = new JTable(model);
+        menuTable.setFillsViewportHeight(true);
+        menuTable.setBackground(new Color(255, 255, 255)); // White color for table background for clarity
+        menuTable.setForeground(new Color(51, 51, 51)); // Dark grey for text for readability
         add(new JScrollPane(menuTable), BorderLayout.CENTER);
 
         JPanel inputPanel = new JPanel();
+        inputPanel.setBackground(new Color(240, 240, 240)); // Soft light gray for input panel background
         nameField = new JTextField(10);
         priceField = new JTextField(10);
         descriptionField = new JTextField(20);
@@ -34,15 +38,23 @@ public class EditMenuPanel extends JDialog {
         inputPanel.add(descriptionField);
 
         JButton addButton = new JButton("Add to Menu");
+        addButton.setBackground(new Color(120, 199, 119)); // Soft green for add button
+        addButton.setForeground(Color.WHITE); // White text for better visibility
         addButton.addActionListener(this::addMenuItem);
         inputPanel.add(addButton);
 
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(240, 240, 240)); // Consistent background with input panel
         JButton deleteButton = new JButton("Delete");
+        deleteButton.setBackground(new Color(219, 83, 77)); // Soft red for delete button
+        deleteButton.setForeground(Color.WHITE);
         JButton saveButton = new JButton("Save Changes");
+        saveButton.setBackground(new Color(72, 133, 237)); // Soft blue for save button
+        saveButton.setForeground(Color.WHITE);
 
         deleteButton.addActionListener(this::deleteMenuItem);
         saveButton.addActionListener(e -> saveChanges());
+
 
         buttonPanel.add(deleteButton);
         buttonPanel.add(saveButton);

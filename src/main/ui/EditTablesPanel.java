@@ -21,9 +21,13 @@ public class EditTablesPanel extends JDialog {
 
         tableModel = new DefaultTableModel(new Object[]{"Table Number", "Seating Capacity"}, 0);
         tablesTable = new JTable(tableModel);
+        tablesTable.setFillsViewportHeight(true);
+        tablesTable.setBackground(new Color(255, 255, 255)); // White color for table background
+        tablesTable.setForeground(new Color(51, 51, 51)); // Dark grey for text
         add(new JScrollPane(tablesTable), BorderLayout.CENTER);
 
         JPanel inputPanel = new JPanel();
+        inputPanel.setBackground(new Color(240, 240, 240)); // Soft light gray for input panel background
         tableNumberField = new JTextField(10);
         seatingCapacityField = new JTextField(10);
 
@@ -33,12 +37,19 @@ public class EditTablesPanel extends JDialog {
         inputPanel.add(seatingCapacityField);
 
         JButton addButton = new JButton("Add Table");
+        addButton.setBackground(new Color(120, 199, 119)); // Soft green for add button
+        addButton.setForeground(Color.WHITE); // White text for better visibility
         addButton.addActionListener(this::addTable);
         inputPanel.add(addButton);
 
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(240, 240, 240)); // Consistent background with input panel
         JButton deleteButton = new JButton("Delete Table");
+        deleteButton.setBackground(new Color(219, 83, 77)); // Soft red for delete button
+        deleteButton.setForeground(Color.WHITE);
         JButton saveButton = new JButton("Save Changes");
+        saveButton.setBackground(new Color(72, 133, 237)); // Soft blue for save button
+        saveButton.setForeground(Color.WHITE);
 
         deleteButton.addActionListener(this::deleteTable);
         saveButton.addActionListener(this::saveChanges);

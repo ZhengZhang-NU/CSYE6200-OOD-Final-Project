@@ -21,12 +21,20 @@ public class PersonCreationPanel extends JFrame {
         setSize(300, 200);
         setLayout(new FlowLayout());
 
+        // Set a neutral background color for the entire frame
+        getContentPane().setBackground(new Color(250, 250, 250)); // light gray background
+
         nameField = new JTextField(10);
         phoneField = new JTextField(10);
         typeComboBox = new JComboBox<>(new String[]{"Customer", "Employee"});
         createButton = new JButton("Create");
         infoArea = new JTextArea(5, 20);
         infoArea.setEditable(false);
+
+        // Customizing component colors
+        createButton.setBackground(new Color(100, 149, 237)); // Cornflower blue color for the button
+        createButton.setForeground(Color.WHITE); // White text for better visibility
+        infoArea.setBackground(new Color(240, 248, 255)); // Alice blue background for text area
 
         add(new JLabel("Name:"));
         add(nameField);

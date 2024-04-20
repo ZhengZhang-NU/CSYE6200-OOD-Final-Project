@@ -42,10 +42,19 @@ public class OrderOnlinePanel extends JDialog {
     private void initializeMenuTable() {
         tableModel = new DefaultTableModel(new Object[]{"Name", "Price", "Description"}, 0);
         menuTable = new JTable(tableModel);
+        menuTable.setBackground(new Color(255, 255, 255)); // White background for table
+        menuTable.setForeground(new Color(0, 0, 0)); // Black text for readability
         loadMenuItems();
     }
 
     private void initializeControls() {
+        addToCartButton.setBackground(new Color(76, 175, 80)); // Green button for adding items
+        addToCartButton.setForeground(Color.WHITE);
+        confirmOrderButton.setBackground(new Color(33, 150, 243)); // Blue button for confirmation
+        confirmOrderButton.setForeground(Color.WHITE);
+        sortPriceButton.setBackground(new Color(255, 193, 7)); // Amber button for sorting
+        sortPriceButton.setForeground(Color.WHITE);
+
         addToCartButton.addActionListener(e -> addToCart());
         confirmOrderButton.addActionListener(e -> confirmOrder());
         sortPriceButton.addActionListener(e -> sortMenuByPrice());
