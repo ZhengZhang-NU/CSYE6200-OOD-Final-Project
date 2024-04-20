@@ -1,4 +1,4 @@
-package main;
+package main.business;
 
 public class Table {
     private int tableNumber;
