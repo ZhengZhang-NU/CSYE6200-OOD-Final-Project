@@ -1,7 +1,9 @@
 package main.ui;
 
-import main.business.*;
+import main.business.Customer;
+import main.business.DataStorage;
 import main.business.MenuItem;
+import main.business.Order;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -110,16 +112,27 @@ public class OrderOnlinePanel extends JDialog {
             MenuItem item = menuItems.get(selectedRow);
             cartItems.add(item);
             cartArea.append(item.getName() + " - $" + item.getPrice() + "\n");
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select an item to add to your cart.", "Selection Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void confirmOrder() {
-        String customerName = nameField.getText();
-        String customerAddress = addressField.getText();
-        String customerPhone = phoneField.getText();
+        String customerName = nameField.getText().trim();
+        String customerAddress = addressField.getText().trim();
+        String customerPhone = phoneField.getText().trim();
+
+        if (customerName.isEmpty() || customerAddress.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Name and address cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!customerPhone.matches("\\d{10}")) {
+            JOptionPane.showMessageDialog(this, "Phone number must be exactly 10 digits.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         Customer customer = new Customer(customerName, customerPhone, customerAddress);
-        Order order = new Order(DataStorage.generateOrderId(), customer, cartItems);
+        Order order = new Order(DataStorage.generateOrderId(), customer, new ArrayList<>(cartItems));
         DataStorage.addOrder(order);
 
         JOptionPane.showMessageDialog(this, "Order submitted successfully!");
