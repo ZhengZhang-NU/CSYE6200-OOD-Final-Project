@@ -35,6 +35,9 @@ Contributions from team members have been crucial in bringing this project to fr
   - **Java Backend Code**: Implemented core functionalities in the Java backend, including data handling and logic.
   - **Basic Swing Code**: Developed foundational GUI components using Java Swing.
   - **README.md File**: Authored the initial README.md file, providing detailed documentation on the project, usage, and tech stack.
+- **Jiajian You**
+  - **GUI Improvement**: Making GUI more attractive.
+  - **PowerPoint**: Building a basic PowerPoint framework
 
 We greatly appreciate the efforts of all the above contributors
 
