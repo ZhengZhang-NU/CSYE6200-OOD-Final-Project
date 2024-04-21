@@ -27,6 +27,15 @@ This Reservation Management System is designed to streamline the process of mana
 
 Navigate through the GUI to manage customers, reservations, and orders. Data can be entered through the provided forms and will be stored in CSV files for persistence.
 
+## Contributions
 
+Contributions from team members have been crucial in bringing this project to fruition. Here, we highlight the specific contributions of each team member:
+
+- **Zheng Zhang**
+  - **Java Backend Code**: Implemented core functionalities in the Java backend, including data handling and logic.
+  - **Basic Swing Code**: Developed foundational GUI components using Java Swing.
+  - **README.md File**: Authored the initial README.md file, providing detailed documentation on the project, usage, and tech stack.
+
+We greatly appreciate the efforts of all the above contributors
 
 
