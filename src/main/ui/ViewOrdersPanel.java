@@ -33,21 +33,25 @@ public class ViewOrdersPanel extends JDialog {
 
         ordersTable = new JTable(tableModel);
         ordersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ordersTable.setBackground(new Color(255, 255, 255)); // White background for table
+        ordersTable.setForeground(new Color(0, 0, 0)); // Black text for readability
 
         JScrollPane scrollPane = new JScrollPane(ordersTable);
         add(scrollPane, BorderLayout.CENTER);
 
         updateStatusButton = new JButton("Update Status");
-        updateStatusButton.addActionListener(this::updateOrderStatus);
+        updateStatusButton.setBackground(new Color(70, 130, 180)); // Steel blue color for the update button
+        updateStatusButton.setForeground(Color.WHITE); // White text for better visibility
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(updateStatusButton);
+        buttonPanel.setBackground(new Color(245, 245, 245)); // Light gray background for the button panel
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
     private void loadOrders() {
         List<Order> orders = DataStorage.getOrders();
         for (Order order : orders) {
-            tableModel.addRow(new Object[]{
+            tableModel.addRow(new Object[] {
                     order.getOrderId(),
                     order.getCustomer().getName(),
                     order.getOrderedItems().size(),
@@ -66,7 +70,7 @@ public class ViewOrdersPanel extends JDialog {
                     .orElse(null);
 
             if (order != null) {
-                Object[] possibilities = {"PREPARING", "READY", "DELIVERED"};
+                Object[] possibilities = { "PREPARING", "READY", "DELIVERED" };
                 String newStatus = (String) JOptionPane.showInputDialog(
                         this,
                         "Select new status:",
@@ -82,7 +86,8 @@ public class ViewOrdersPanel extends JDialog {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Please select an order to update its status.", "Update Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select an order to update its status.", "Update Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

@@ -33,16 +33,27 @@ public class ViewReservationsPanel extends JDialog {
         tableModel.addColumn("Status");
 
         reservationsTable = new JTable(tableModel);
+        reservationsTable.setBackground(new Color(255, 255, 255)); // White background for table
+        reservationsTable.setForeground(new Color(0, 0, 0)); // Black text for readability
+
         loadReservations();
 
         JScrollPane scrollPane = new JScrollPane(reservationsTable);
+        scrollPane.setBackground(new Color(245, 245, 245)); // Light gray background for scroll pane
         add(scrollPane, BorderLayout.CENTER);
     }
 
     private void initializeButtons() {
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(245, 245, 245)); // Light gray background for button panel
+
         approveButton = new JButton("Approve");
         rejectButton = new JButton("Reject");
+
+        approveButton.setBackground(new Color(34, 139, 34)); // Forest green for approve button
+        approveButton.setForeground(Color.WHITE); // White text for better visibility
+        rejectButton.setBackground(new Color(220, 20, 60)); // Crimson for reject button
+        rejectButton.setForeground(Color.WHITE); // White text for better visibility
 
         approveButton.addActionListener(e -> updateStatus(ReservationStatus.APPROVED));
         rejectButton.addActionListener(e -> updateStatus(ReservationStatus.REJECTED));
@@ -54,7 +65,7 @@ public class ViewReservationsPanel extends JDialog {
 
     private void loadReservations() {
         for (Reservation reservation : DataStorage.getReservations()) {
-            tableModel.addRow(new Object[]{
+            tableModel.addRow(new Object[] {
                     reservation.getReservationId(),
                     reservation.getCustomer().getName(),
                     reservation.getTable().getTableNumber(),
@@ -75,7 +86,8 @@ public class ViewReservationsPanel extends JDialog {
                 tableModel.setValueAt(newStatus.toString(), selectedRow, 5);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Please select a reservation to update its status.", "Update Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select a reservation to update its status.", "Update Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }
