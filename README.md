@@ -38,7 +38,12 @@ Contributions from team members have been crucial in bringing this project to fr
 - **Jiajian You**
   - **GUI Improvement**: Making GUI more attractive.
   - **PowerPoint**: Building a basic PowerPoint framework
-
+- **Yu Du**
+  **Java Swing GUI Development**:
+  - **Foundational GUI Components**: Developed foundational GUI components using Java Swing to create an interactive and user-friendly interface.
+  - **Basic GUI Design**: Contributed to the basic design of the GUI, focusing on layout and interface elements to ensure an intuitive user experience.
+  - **Frontend Validation**: Implemented validation logic on the frontend to ensure data integrity and user input validation, enhancing the application's reliability and usability.
+  - **UML Design**: Designed the project's UML diagrams to provide a clear architectural overview and facilitate understanding of the system's structure and relationships.
 We greatly appreciate the efforts of all the above contributors
 
 
