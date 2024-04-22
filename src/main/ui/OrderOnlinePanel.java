@@ -40,10 +40,10 @@ public class OrderOnlinePanel extends JDialog {
     }
 
     private void initializeMenuTable() {
-        tableModel = new DefaultTableModel(new Object[]{"Name", "Price", "Description"}, 0);
+        tableModel = new DefaultTableModel(new Object[] { "Name", "Price", "Description" }, 0);
         menuTable = new JTable(tableModel);
         menuTable.setBackground(new Color(255, 255, 255)); // White background for table
-        menuTable.setForeground(new Color(0, 0, 0)); // Black text for readability
+        menuTable.setForeground(new Color(0, 0, 0));
         loadMenuItems();
     }
 
@@ -52,7 +52,7 @@ public class OrderOnlinePanel extends JDialog {
         addToCartButton.setForeground(Color.WHITE);
         confirmOrderButton.setBackground(new Color(33, 150, 243)); // Blue button for confirmation
         confirmOrderButton.setForeground(Color.WHITE);
-        sortPriceButton.setBackground(new Color(255, 193, 7)); // Amber button for sorting
+        sortPriceButton.setBackground(new Color(255, 193, 7)); // Amber button
         sortPriceButton.setForeground(Color.WHITE);
 
         addToCartButton.addActionListener(e -> addToCart());
@@ -98,7 +98,7 @@ public class OrderOnlinePanel extends JDialog {
                 String description = item[2];
                 MenuItem menuItem = new MenuItem(name, price, description);
                 menuItems.add(menuItem);
-                tableModel.addRow(new Object[]{name, price, description});
+                tableModel.addRow(new Object[] { name, price, description });
             }
         }
     }
@@ -111,7 +111,8 @@ public class OrderOnlinePanel extends JDialog {
     private void refreshTable() {
         tableModel.setRowCount(0);
         for (MenuItem item : menuItems) {
-            tableModel.addRow(new Object[]{item.getName(), String.format("$%.2f", item.getPrice()), item.getDescription()});
+            tableModel.addRow(
+                    new Object[] { item.getName(), String.format("$%.2f", item.getPrice()), item.getDescription() });
         }
     }
 
@@ -122,7 +123,8 @@ public class OrderOnlinePanel extends JDialog {
             cartItems.add(item);
             cartArea.append(item.getName() + " - $" + item.getPrice() + "\n");
         } else {
-            JOptionPane.showMessageDialog(this, "Please select an item to add to your cart.", "Selection Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select an item to add to your cart.", "Selection Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -132,11 +134,13 @@ public class OrderOnlinePanel extends JDialog {
         String customerPhone = phoneField.getText().trim();
 
         if (customerName.isEmpty() || customerAddress.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Name and address cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Name and address cannot be empty.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (!customerPhone.matches("\\d{10}")) {
-            JOptionPane.showMessageDialog(this, "Phone number must be exactly 10 digits.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Phone number must be exactly 10 digits.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 

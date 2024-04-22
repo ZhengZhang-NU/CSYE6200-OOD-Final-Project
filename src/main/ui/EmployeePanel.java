@@ -9,7 +9,7 @@ public class EmployeePanel extends JDialog {
         super(owner, "Employee Panel", true);
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new GridLayout(4, 1));  // 4 buttons in a column
+        setLayout(new GridLayout(4, 1)); // 4 buttons in a column
 
         JButton editMenuButton = new JButton("Edit Menu");
         JButton editTablesButton = new JButton("Edit Tables");

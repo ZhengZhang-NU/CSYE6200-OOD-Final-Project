@@ -6,14 +6,12 @@ import java.util.Comparator;
 
 public class DemoApp {
 
-
     private void demoCSVUtils() {
         String filePath = "example.csv";
         List<String[]> dataToWrite = Arrays.asList(
-                new String[]{"Name", "Phone", "Address"},
-                new String[]{"Alice", "123456789", "123 Wonderland Ave"},
-                new String[]{"Bob", "987654321", "456 Nowhere Blvd"}
-        );
+                new String[] { "Name", "Phone", "Address" },
+                new String[] { "Alice", "123456789", "123 Wonderland Ave" },
+                new String[] { "Bob", "987654321", "456 Nowhere Blvd" });
         CSVUtils.writeCSV(dataToWrite, filePath);
         System.out.println("Data written to CSV.");
 
@@ -31,7 +29,8 @@ public class DemoApp {
 
         Reservation reservation = new Reservation(alice, java.time.LocalDateTime.now(), 4, new Table(101, 4));
         DataStorage.addReservation(reservation);
-        System.out.println("Reservation added for: " + alice.getName() + " at table " + reservation.getTable().getTableNumber());
+        System.out.println(
+                "Reservation added for: " + alice.getName() + " At table " + reservation.getTable().getTableNumber());
 
         Menu menu = createSortedMenu();
 
@@ -57,7 +56,6 @@ public class DemoApp {
         return menu;
     }
 
-
     private void updateOrderStatus(Order order, OrderStatus newStatus, Employee employee) {
         System.out.println("Order status updated by employee " + employee.getName() + ":");
         order.setStatus(newStatus);
@@ -66,15 +64,12 @@ public class DemoApp {
 
     public void drive() {
 
-
         System.out.println("Demonstrating CSV Utils:");
         demoCSVUtils();
 
         System.out.println("\nDemonstrating Business Logic:");
         demoBusinessLogic();
 
-
     }
-
 
 }

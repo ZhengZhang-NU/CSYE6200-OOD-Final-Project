@@ -32,7 +32,7 @@ public class CSVUtils {
                 pw.println(String.join(",", dataValues));
             }
         } catch (IOException e) {
-            System.out.println("Error writing CSV file: " + e.getMessage());
+            System.out.println("Error writing CSV File: " + e.getMessage());
         }
     }
 }

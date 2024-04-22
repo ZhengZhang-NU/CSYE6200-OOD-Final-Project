@@ -28,7 +28,7 @@ public class StatusQueryPanel extends JDialog {
 
         // Customizing button colors and text area
         searchButton.setBackground(new Color(100, 149, 237)); // Cornflower blue for the search button
-        searchButton.setForeground(Color.WHITE); // White text for better visibility
+        searchButton.setForeground(Color.WHITE); // White text
 
         inputPanel.add(new JLabel("Name:"));
         inputPanel.add(nameField);
@@ -38,7 +38,7 @@ public class StatusQueryPanel extends JDialog {
 
         resultArea = new JTextArea();
         resultArea.setEditable(false);
-        resultArea.setBackground(new Color(240, 248, 255)); // Alice blue for the result area, making it easier to read
+        resultArea.setBackground(new Color(240, 248, 255)); // Alice blue for the result area
 
         add(new JScrollPane(resultArea), BorderLayout.CENTER);
 
