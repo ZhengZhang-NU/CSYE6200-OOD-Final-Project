@@ -45,18 +45,16 @@ Contributions from team members have been crucial in bringing this project to fr
   - **Frontend Validation**: Implemented validation logic on the frontend to ensure data integrity and user input validation, enhancing the application's reliability and usability.
   - **UML Design**: Designed the project's UML diagrams to provide a clear architectural overview and facilitate understanding of the system's structure and relationships.
 - **Sajiri Gokak**
-  **GUI Development**:
-  - Implemented intuitive menus, buttons, and input fields to streamline user interactions, enhancing the overall user experience.
-  - Integrated GUI components with backend functionalities, ensuring smooth data flow and system functionality.
-  **PowerPoint Presentation**:
-  - Collaborated with team members to gather relevant content, including system functionalities, user interface screenshots.
+  **GUI Development**:Implemented intuitive menus, buttons, and input fields to streamline user interactions, enhancing the overall user experience and integrated GUI components with backend functionalities.
+   
+  **PowerPoint Presentation**: Collaborated with team members to gather relevant content, including system functionalities, user interface screenshots.
   - Designed visually engaging slides using professional templates, incorporating graphics, charts, and animations to effectively communicate key messages and highlight system strengths.
   - Crafted concise and informative narrative content to accompany each slide, ensuring clarity and coherence in the presentation flow.
-  **Video Demo**:
-  - Demonstrated the end-to-end functionality of the restaurant management system, from user registration and menu customization to order processing.
+    
+  **Video Demo**: Demonstrated the end-to-end functionality of the restaurant management system, from user registration and menu customization to order processing.
   - Highlighted key system functionalities, such as table reservation, order tracking, and reporting capabilities, to showcase the system's value proposition and benefits to stakeholders.
  
-  - 
+    
 We greatly appreciate the efforts of all the above contributors
 
 
