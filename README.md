@@ -36,8 +36,8 @@ Contributions from team members have been crucial in bringing this project to fr
   - **Basic Swing Code**: Developed foundational GUI components using Java Swing.
   - **README.md File**: Authored the initial README.md file, providing detailed documentation on the project, usage, and tech stack.
 - **Jiajian You**
-  - **GUI Improvement**: Making GUI more attractive.
-  - **PowerPoint**: Building a basic PowerPoint framework
+  - **Code Improvement**: Modifying part of the codes that makes GUI more attractive and more sensible.
+  - **PowerPoint**: Building a basic PowerPoint framework that clearly explains the structure of the work.
 - **Yu Du**
   **Java Swing GUI Development**:
   - **Foundational GUI Components**: Developed foundational GUI components using Java Swing to create an interactive and user-friendly interface.
