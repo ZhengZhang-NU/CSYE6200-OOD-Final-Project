@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This Reservation Management System is designed to streamline the process of managing reservations for restaurants. Built using Java and Swing, the system allows for efficient handling of customer details, reservations, orders, and table allocations.
+This Restaurant Management System is designed to streamline the process of managing reservations for restaurants. Built using Java and Swing, the system allows for efficient handling of customer details, reservations, orders, and table allocations.
 
 ## Features
 
