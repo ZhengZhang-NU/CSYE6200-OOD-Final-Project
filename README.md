@@ -1,4 +1,4 @@
-# Reservation Management System
+# Restaurant Management System
 
 ## Project Overview
 
